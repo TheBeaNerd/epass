@@ -6,7 +6,7 @@ $generateButton    = $_POST['generateButton'];
 $manualButton      = $_POST['manualButton'];
 $passwordButton    = $_POST['passwordButton'];
 $settingsButton    = $_POST['settingsButton'];
-$createButton      = $_POST['createButton'];
+$restoreButton      = $_POST['restoreButton'];
 $changeButton      = $_POST['changeButton'];
 $defaultButton     = $_POST['defaultButton'];
 $postUpper    = $_POST['upper'];
@@ -20,13 +20,13 @@ $password = $_POST['password'];
 
 function epass() {
   // This is the top level epass() function.
-  global $generateButton, $manualButton, $passwordButton, $settingsButton, $createButton, $changeButton, $defaultButton;
+  global $generateButton, $manualButton, $passwordButton, $settingsButton, $restoreButton, $changeButton, $defaultButton;
   if (isset($manualButton)) {
     generateManualPage();
   } elseif ((isset($settingsButton))&&(notNull())) {
     generateSettings();
-  } elseif (isset($createButton)) {
-    createPassword();
+  } elseif (isset($restoreButton)) {
+    restoreDefaults();
   } elseif ((isset($changeButton))&&(notNull())) {
     changePassword(); 
   } elseif ((isset($passwordButton))&&(notNull())) {
@@ -74,7 +74,7 @@ function generateSettings() {
     echo($res);
 }
       
-function createPassword() {
+function restoreDefaults() {
   global $upper, $lower, $number, $special, $size, $url, $password, $user;
   $res = openHTML();
   $res .= passInfo();
@@ -555,10 +555,10 @@ function closeHTML() {
 function requestHash() {
   return('
 <td align="center" colspan="3">
-  <input name="createButton" 
-         title="sets the default settings for the website and generates the new  password" 
+  <input name="restoreButton" 
+         title="Restores the default settings for the website and generates the new password" 
          type="submit"   
-         value="Generate Password"/>
+         value="Restore Defaults"/>
 </td>
 <td align="center" colspan="3">
   <input name="defaultButton" 

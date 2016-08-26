@@ -1,6 +1,6 @@
  <?php
 if (FALSE == @include __DIR__ . '/../../sql.php') {
-  exit;
+  exit();
 }
 $generateButton    = $_POST['generateButton'];
 $manualButton      = $_POST['manualButton'];
@@ -8,7 +8,7 @@ $passwordButton    = $_POST['passwordButton'];
 $settingsButton    = $_POST['settingsButton'];
 $createButton      = $_POST['createButton'];
 $changeButton      = $_POST['changeButton'];
-$versionButton     = $_POST['versionButton'];
+$defaultButton     = $_POST['defaultButton'];
 $postUpper    = $_POST['upper'];
 $postLower    = $_POST['lower'];
 $postNumber   = $_POST['number'];
@@ -20,7 +20,7 @@ $password = $_POST['password'];
 
 function epass() {
   // This is the top level epass() function.
-  global $generateButton, $manualButton, $passwordButton, $settingsButton, $createButton, $changeButton, $versionButton;
+  global $generateButton, $manualButton, $passwordButton, $settingsButton, $createButton, $changeButton, $defaultButton;
   if (isset($manualButton)) {
     generateManualPage();
   } elseif ((isset($settingsButton))&&(notNull())) {
@@ -31,8 +31,8 @@ function epass() {
     changePassword(); 
   } elseif ((isset($passwordButton))&&(notNull())) {
     generatePassword();
-  } elseif (isset($versionButton)) {
-    changeVersion();
+  } elseif (isset($defaultButton)) {
+    changeDefault();
   } else {
     // Default Behavior
     generateSplashPage();
@@ -104,7 +104,7 @@ function changePassword() {
   echo($res);
   }
 
-function changeVersion() {
+function changeDefault() {
   global $upper, $lower, $number, $special, $size, $url, $password, $user;
   $res = openHTML();
   $res .= passInfo();
@@ -113,7 +113,7 @@ function changeVersion() {
   $res .= postHash('Old Password');
   $res .= hR();
   getPostData();
-  setChanges(1);  
+  setChanges(0);
   $res .= postHash('New Password');
   $res .= hR();
   $res .= closeHTML();
@@ -553,9 +553,19 @@ function closeHTML() {
   }
 
 function requestHash() {
-  return('<td align="center" colspan="3"><input name="createButton" title="sets the default settings for the website and generates the new  password" type="submit"   
-value="Generate Password"/></td><td align="center" colspan="3"><input name="versionButton" title="Changes the default settings for the website and generates the new password and old password" type="submit"   
-value="Change Password"/></td>');                                                   
+  return('
+<td align="center" colspan="3">
+  <input name="createButton" 
+         title="sets the default settings for the website and generates the new  password" 
+         type="submit"   
+         value="Generate Password"/>
+</td>
+<td align="center" colspan="3">
+  <input name="defaultButton" 
+         title="Changes the default settings for the website and generates the new password and old password" 
+         type="submit"   
+         value="Change Password"/>
+</td>');                                                   
 }
 
 function passInfo() {

@@ -190,10 +190,8 @@ function passwordSpec($upper,$lower,$number,$special,$size,$entropy) {
   $map = selectAllowable($count,0,0,0);
   for ($x=0;$x<$count;$x++) {
     $loc = $entropy->chooseIndex($size);
-//    echo "<PRE>upper :" . $index[$loc] . "</PRE>";
     $spec[$index[$loc]] = $map;
-//    array_splice($index,$loc,1);
-    unset($index[$loc]);
+    array_splice($index,$loc,1);
     $size--;
   }
 
@@ -201,10 +199,8 @@ function passwordSpec($upper,$lower,$number,$special,$size,$entropy) {
   $map = selectAllowable(0,$count,0,0);
   for ($x=0;$x<$count;$x++) {
     $loc = $entropy->chooseIndex($size);
-//    echo "<PRE>lower :" . $index[$loc] . "</PRE>";
     $spec[$index[$loc]] = $map;
-//    array_splice($index,$loc,1);
-    unset($index[$loc]);
+    array_splice($index,$loc,1);
     $size--;
   }
 
@@ -212,10 +208,8 @@ function passwordSpec($upper,$lower,$number,$special,$size,$entropy) {
   $map = selectAllowable(0,0,$count,0);
   for ($x=0;$x<$count;$x++) {
     $loc = $entropy->chooseIndex($size);
-//    echo "<PRE>number :" . $index[$loc] . "</PRE>";
     $spec[$index[$loc]] = $map;
-//    array_splice($index,$loc,1);
-    unset($index[$loc]);
+    array_splice($index,$loc,1);
     $size--;
   }
   
@@ -223,10 +217,8 @@ function passwordSpec($upper,$lower,$number,$special,$size,$entropy) {
   $map = selectAllowable(0,0,0,$count);
   for ($x=0;$x<$count;$x++) {
     $loc = $entropy->chooseIndex($size);
-//  echo "<PRE>special :" . $index[$loc] . "</PRE>";
     $spec[$index[$loc]] = $map;
-//    array_splice($index,$loc,1);
-    unset($index[$loc]);
+    array_splice($index,$loc,1);
     $size--;
   }
 

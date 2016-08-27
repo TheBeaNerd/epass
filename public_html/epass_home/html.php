@@ -10,14 +10,14 @@ function postHash($words) {
 }
 
 function openHTML() {
-  $res = '<html><head><title>Zed?</title><style type="text/css"></style></head><body text="#000000" bgcolor="#ffdead" link="#0000ee" vlink="#551a8b" alink="#ff0000"><form name="splash" method="post" action="epass.php">';
+  $res = '<html><head><title>epass</title><style type="text/css"></style></head><body text="#000000" bgcolor="#ffdead" link="#0000ee" vlink="#551a8b" alink="#ff0000"><form name="splash" method="post" action="epass.php">';
   return($res);
   }
   
 function closeHTML() {
-    $res = '</html></body></form>';
+  $res = '</html></body></form>';
   return($res);
-  }
+}
 
 function requestHash() {
   return('
@@ -46,6 +46,34 @@ function passInfo() {
 
 function hR() {
   return('<br><hr width="100%">');
+}
+
+function numberSelect($name,$value) {
+if 
+($value=='checked') {
+$selectone = "";
+$selecttwo = "selected";
+} else {
+$selectone = "selected";
+$selecttwo = "";
+}
+$res =  "<select name='$name'> 
+  		<option $selectone value=''>none</option>
+  		<option $selecttwo value='checked'>1+</option>
+  	       </select>";  	      
+  	       return $res;
+}
+
+function optionSelect($name,$min,$max,$value) {
+  $opt=array_fill(0,$max-$min,"");
+  $opt[$value-$min]=' selected="selected" ';
+  $res="<select name='$name'>";
+  $index = 0;
+  for ($i=$min;$i<=$max;$i++) {
+    $res .= "<option value='$i'  ".$opt[$index++].">$i</option>";
+  }
+  $res .= "</select>";
+  return($res);
 }
 
 function characterSelection() {

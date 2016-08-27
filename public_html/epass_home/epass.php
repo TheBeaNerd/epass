@@ -1,7 +1,4 @@
  <?php
-if (FALSE == @include __DIR__ . '/../../sql.php') {
-  exit();
-}
 $generateButton    = $_POST['generateButton'];
 $manualButton      = $_POST['manualButton'];
 $passwordButton    = $_POST['passwordButton'];

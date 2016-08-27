@@ -1,0 +1,28 @@
+
+        Website : test.com
+      User Name : joe
+Master Password : abcd
+
+Generate Password ->
+
+  Copy and Paste: ECnwukeq4H
+
+URL Settings ->
+  o 16 characters, Special Characters +1
+
+  New Password : {7@d\kRm E3J~wkB
+
+URL Settings ->
+  o 10 characters, Special Characters none
+
+  Old Password : {7@d\kRm E3J~wkB
+  New Password : ECnwukeq4H
+
+Change Password ->
+
+  Old Password : ECnwukeq4H
+  New Password : W8T4nnCscd
+
+< Now, delete SQL entry >
+
+- Perhaps we should provide a "rollback" feature?

@@ -48,22 +48,6 @@ function hR() {
   return('<br><hr width="100%">');
 }
 
-function numberSelect($name,$value) {
-if 
-($value=='checked') {
-$selectone = "";
-$selecttwo = "selected";
-} else {
-$selectone = "selected";
-$selecttwo = "";
-}
-$res =  "<select name='$name'> 
-  		<option $selectone value=''>none</option>
-  		<option $selecttwo value='checked'>1+</option>
-  	       </select>";  	      
-  	       return $res;
-}
-
 function optionSelect($name,$min,$max,$value) {
   $opt=array_fill(0,$max-$min,"");
   $opt[$value-$min]=' selected="selected" ';
@@ -78,10 +62,10 @@ function optionSelect($name,$min,$max,$value) {
 
 function characterSelection() {
   global $SQL_upper, $SQL_lower, $SQL_number, $SQL_special, $SQL_size;
-  $upperC   = numberSelect("upper",$SQL_upper);
-  $lowerC   = numberSelect("lower",$SQL_lower);
-  $numberC  = numberSelect("number",$SQL_number); 
-  $specialC = numberSelect("special",$SQL_special);
+  $upperC   = optionSelect("upper",0,2,$SQL_upper);
+  $lowerC   = optionSelect("lower",0,2,$SQL_lower);
+  $numberC  = optionSelect("number",0,2,$SQL_number); 
+  $specialC = optionSelect("special",0,2,$SQL_special);
   $sizeSelect = optionSelect("size",8,16,$SQL_size);
   $res = 
   "<center>

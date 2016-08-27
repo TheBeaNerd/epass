@@ -23,10 +23,10 @@ $POST_Number      = $_POST['number'];
 $POST_Special     = $_POST['special'];
 $POST_Size        = $_POST['size'];
 
-$SQL_upper       = 'checked';
-$SQL_lower       = 'checked';
-$SQL_number      = 'checked';
-$SQL_special     = '';
+$SQL_upper       = 1;
+$SQL_lower       = 1;
+$SQL_number      = 1;
+$SQL_special     = 0;
 $SQL_size        = 10;
 $SQL_version     = 1;
 

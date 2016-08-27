@@ -21,10 +21,10 @@ function getChangedSettings() {
 
 function setDefaultSettings() {
     global $SQL_upper, $SQL_lower, $SQL_number, $SQL_special, $SQL_size, $SQL_version;
-    $SQL_upper   = 'checked';
-    $SQL_lower   = 'checked';
-    $SQL_number  = 'checked';
-    $SQL_special = '';
+    $SQL_upper   = 1;
+    $SQL_lower   = 1;
+    $SQL_number  = 1;
+    $SQL_special = 0;
     $SQL_size    = 10;
     $SQL_version = 1;
     getChangedSettings();
@@ -58,10 +58,10 @@ function openSQL () {
                 ID varchar(128) NOT NULL,
                 USERNAME varchar(128) NOT NULL,
                 URL varchar(128) NOT NULL,
-                UPPER char(10),
-                LOWER char(10),
-                SPECIAL char(10),
-                NUMBER char(10),
+                UPPER int,
+                LOWER int,
+                SPECIAL int,
+                NUMBER int,
                 SIZE int,
                 VERSION int,
 	        PRIMARY KEY  (ID, URL))";

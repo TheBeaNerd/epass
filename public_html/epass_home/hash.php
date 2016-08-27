@@ -179,6 +179,7 @@ function passwordSpec($upper,$lower,$number,$special,$size,$entropy) {
   $spec = array();
   $index = array();
   $map = selectAllowable($upper,$lower,$number,$special);
+  $size = max($size,$upper + $lower + $number + $special);
   for ($i=0;$i<$size;$i++) {
     // Fill the spec with the default maps
     $spec[$i] = $map;
@@ -189,7 +190,9 @@ function passwordSpec($upper,$lower,$number,$special,$size,$entropy) {
   $map = selectAllowable($count,0,0,0);
   for ($x=0;$x<$count;$x++) {
     $loc = $entropy->chooseIndex($size);
+//    echo "<PRE>upper :" . $index[$loc] . "</PRE>";
     $spec[$index[$loc]] = $map;
+//    array_splice($index,$loc,1);
     unset($index[$loc]);
     $size--;
   }
@@ -198,7 +201,9 @@ function passwordSpec($upper,$lower,$number,$special,$size,$entropy) {
   $map = selectAllowable(0,$count,0,0);
   for ($x=0;$x<$count;$x++) {
     $loc = $entropy->chooseIndex($size);
+//    echo "<PRE>lower :" . $index[$loc] . "</PRE>";
     $spec[$index[$loc]] = $map;
+//    array_splice($index,$loc,1);
     unset($index[$loc]);
     $size--;
   }
@@ -207,7 +212,9 @@ function passwordSpec($upper,$lower,$number,$special,$size,$entropy) {
   $map = selectAllowable(0,0,$count,0);
   for ($x=0;$x<$count;$x++) {
     $loc = $entropy->chooseIndex($size);
+//    echo "<PRE>number :" . $index[$loc] . "</PRE>";
     $spec[$index[$loc]] = $map;
+//    array_splice($index,$loc,1);
     unset($index[$loc]);
     $size--;
   }
@@ -216,7 +223,9 @@ function passwordSpec($upper,$lower,$number,$special,$size,$entropy) {
   $map = selectAllowable(0,0,0,$count);
   for ($x=0;$x<$count;$x++) {
     $loc = $entropy->chooseIndex($size);
+//  echo "<PRE>special :" . $index[$loc] . "</PRE>";
     $spec[$index[$loc]] = $map;
+//    array_splice($index,$loc,1);
     unset($index[$loc]);
     $size--;
   }
@@ -307,21 +316,7 @@ class Entropy {
 
 }
 
-function toNumber($selection) {
-  // For now we use this to convert 'selected' to 1
-  // and '' to 0.  Eventually we want to use numbers
-  // for these values.
-  if ($selection) {
-    return 1;
-  }
-  return 0;
-}
-
 function doHash($upper,$lower,$number,$special,$hashsize,$str) {
-  $upper   = toNumber($upper);
-  $lower   = toNumber($lower);
-  $number  = toNumber($number);
-  $special = toNumber($special);
   $hash = bcrypt($str);
   $entropy = new Entropy($hash);
   $spec = passwordSpec($upper,$lower,$number,$special,$hashsize,$entropy);

@@ -1,4 +1,14 @@
 <?php
+
+//  $DBASE_name="sql_dbase_name";
+//  $DBASE_user="sql_dbase_username";
+//  $DBASE_pass="sql_dbase_password";
+//  $HASH_salt='random_salt_valu';
+
+$INPUT_url       = sanitizeURL($_POST['url']);
+$INPUT_user      = sanitizeUser($_POST['user']);
+$INPUT_password  = $_POST['password'];
+
 $generateButton  = $_POST['generateButton'];
 $manualButton    = $_POST['manualButton'];
 $passwordButton  = $_POST['passwordButton'];
@@ -6,22 +16,27 @@ $settingsButton  = $_POST['settingsButton'];
 $restoreButton   = $_POST['restoreButton'];
 $changeButton    = $_POST['changeButton'];
 $defaultButton   = $_POST['defaultButton'];
-$postUpper       = $_POST['upper'];
-$postLower       = $_POST['lower'];
-$postNumber      = $_POST['number'];
-$postSpecial     = $_POST['special'];
-$postSize        = $_POST['size'];
-$url             = sanitizeURL($_POST['url']);
-$user            = sanitizeUser($_POST['user']);
-$password        = $_POST['password'];
+
+$POST_Upper       = $_POST['upper'];
+$POST_Lower       = $_POST['lower'];
+$POST_Number      = $_POST['number'];
+$POST_Special     = $_POST['special'];
+$POST_Size        = $_POST['size'];
+
+$SQL_upper       = 'checked';
+$SQL_lower       = 'checked';
+$SQL_number      = 'checked';
+$SQL_special     = '';
+$SQL_size        = 10;
+$SQL_version     = 1;
 
 function getPostData() {
-    global $upper, $lower, $number, $special, $size, $postUpper, $postLower, $postNumber, $postSpecial, $postSize;
-    $upper = $postUpper;
-    $lower = $postLower;
-    $number = $postNumber;
-    $special = $postSpecial;
-    $size = $postSize;
+    global $SQL_upper, $SQL_lower, $SQL_number, $SQL_special, $SQL_size, $POST_Upper, $POST_Lower, $POST_Number, $POST_Special, $POST_Size;
+    $SQL_upper   = $POST_Upper;
+    $SQL_lower   = $POST_Lower;
+    $SQL_number  = $POST_Number;
+    $SQL_special = $POST_Special;
+    $SQL_size    = $POST_Size;
 }
 
 ?>

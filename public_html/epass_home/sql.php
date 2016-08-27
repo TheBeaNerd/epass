@@ -1,40 +1,41 @@
 <?php
 function getChangedSettings() {
-  global $url, $user, $password, $upper,$lower,$number,$special,$size,$version;  
-  $version = 1;
+  global $INPUT_url, $INPUT_user, $INPUT_password, $SQL_upper,$SQL_lower,$SQL_number,$SQL_special,$SQL_size,$SQL_version;  
+  $SQL_version = 1;
   $sql = openSQL();
-  $ID = upass($user,$password);
-  $query = "SELECT * FROM USERS WHERE ID='$ID' AND URL='$url'";
+  $ID = upass($INPUT_user,$INPUT_password);
+  $query = "SELECT * FROM USERS WHERE ID='$ID' AND URL='$INPUT_url'";
   $result = mysqli_query($sql, $query);
   if ($result !== false) {
     while($row = mysqli_fetch_array($result)) {
-	  	  $upper = $row['UPPER'];
-		  $lower = $row['LOWER'];
-		  $number = $row['NUMBER']; 
-	          $special = $row['SPECIAL'];
-		  $size = $row['SIZE'];  
-		  $version = $row['VERSION'];
+	  	  $SQL_upper = $row['UPPER'];
+		  $SQL_lower = $row['LOWER'];
+		  $SQL_number = $row['NUMBER']; 
+	          $SQL_special = $row['SPECIAL'];
+		  $SQL_size = $row['SIZE'];  
+		  $SQL_version = $row['VERSION'];
     }
   }
   mysqli_close($sql);
 }
 
 function setDefaultSettings() {
-    global $upper, $lower, $number, $special, $size;
-    $upper   = 'checked';
-    $lower   = 'checked';
-    $number  = 'checked';
-    $special = '';
-    $size    = 10;
+    global $SQL_upper, $SQL_lower, $SQL_number, $SQL_special, $SQL_size, $SQL_version;
+    $SQL_upper   = 'checked';
+    $SQL_lower   = 'checked';
+    $SQL_number  = 'checked';
+    $SQL_special = '';
+    $SQL_size    = 10;
+    $SQL_version = 1;
     getChangedSettings();
 }
 
 function setChanges($change) {
-  global $url, $user, $password, $upper,$lower,$number,$special,$size,$version;  
-  $version = $version + $change;
+  global $INPUT_url, $INPUT_user, $INPUT_password, $SQL_upper,$SQL_lower,$SQL_number,$SQL_special,$SQL_size,$SQL_version;  
+  $SQL_version = $SQL_version + $change;
   $sql = openSQL();
-  $ID = upass($user,$password);
-  $query = "REPLACE INTO USERS(ID, USERNAME, URL, UPPER, LOWER, SPECIAL, NUMBER, SIZE, VERSION) VALUES ('$ID', '$user', '$url', '$upper', '$lower', '$special', '$number', $size, $version)";
+  $ID = upass($INPUT_user,$INPUT_password);
+  $query = "REPLACE INTO USERS(ID, USERNAME, URL, UPPER, LOWER, SPECIAL, NUMBER, SIZE, VERSION) VALUES ('$ID', '$INPUT_user', '$INPUT_url', '$SQL_upper', '$SQL_lower', '$SQL_special', '$SQL_number', $SQL_size, $SQL_version)";
   $result = mysqli_query($sql, $query);
   if (result === false) {
     echo "<PRE>SQL: set changes failed</PRE>";
@@ -43,10 +44,10 @@ function setChanges($change) {
   getChangedSettings();
 }
 
-function openSQL () {     
-  global $url, $user, $password, $upper,$lower,$number,$special,$size,$dbase_user,$dbase_pass,$dbase,$version;        
-//  echo("<P>Connecting to MySQL</P>"); $dbase_user
-  $sql = mysqli_connect('localhost',$dbase_user,$dbase_pass,$dbase);
+function openSQL () {
+  global $DBASE_user,$DBASE_pass,$DBASE_name;
+//  echo("<P>Connecting to MySQL</P>"); $DBASE_user
+  $sql = mysqli_connect('localhost',$DBASE_user,$DBASE_pass,$DBASE_name);
   if (mysqli_connect_errno($sql)) {
     echo("<P>Failed to connect to MySQL : " . mysqli_connect_error() . "</P>\n");   
   }

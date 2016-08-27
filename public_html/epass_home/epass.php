@@ -33,7 +33,7 @@ function generateSplashPage() {
 }
 
 function generatePassword() {
-    global $upper, $lower, $number, $special, $size, $url, $password, $user;
+    global $SQL_upper, $SQL_lower, $SQL_number, $SQL_special, $SQL_size, $INPUT_url, $INPUT_password, $INPUT_user;
     $res = openHTML();
     $res .= passInfo();
     setDefaultSettings();
@@ -45,7 +45,7 @@ function generatePassword() {
   }
   
 function generateSettings() {
-    global $upper, $lower, $number, $special, $size, $url, $password, $user;
+    global $SQL_upper, $SQL_lower, $SQL_number, $SQL_special, $SQL_size, $INPUT_url, $INPUT_password, $INPUT_user;
     $res = openHTML();
     $res .= passInfo();
     setDefaultSettings();
@@ -57,7 +57,7 @@ function generateSettings() {
 }
       
 function restoreDefaults() {
-  global $upper, $lower, $number, $special, $size, $url, $password, $user;
+  global $SQL_upper, $SQL_lower, $SQL_number, $SQL_special, $SQL_size, $INPUT_url, $INPUT_password, $INPUT_user;
   $res = openHTML();
   $res .= passInfo();
   getChangedSettings();
@@ -71,7 +71,7 @@ function restoreDefaults() {
   }
   
 function changePassword() {
-  global $upper, $lower, $number, $special, $size, $url, $password, $user;
+  global $SQL_upper, $SQL_lower, $SQL_number, $SQL_special, $SQL_size, $INPUT_url, $INPUT_password, $INPUT_user;
   $res = openHTML();
   $res .= passInfo();
   setDefaultSettings();
@@ -87,7 +87,7 @@ function changePassword() {
   }
 
 function changeDefault() {
-  global $upper, $lower, $number, $special, $size, $url, $password, $user;
+  global $SQL_upper, $SQL_lower, $SQL_number, $SQL_special, $SQL_size, $INPUT_url, $INPUT_password, $INPUT_user;
   $res = openHTML();
   $res .= passInfo();
   setDefaultSettings();

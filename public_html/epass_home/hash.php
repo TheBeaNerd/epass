@@ -63,8 +63,8 @@ function iterationCount($str) {
 }
 
 function salt($str) {
-  global $hash_salt;
-  $salt = $hash_salt . '$';
+  global $HASH_salt;
+  $salt = $HASH_salt . '$';
   $cnfg = '$6$rounds=' . iterationCount($str) . '$';
   return($cnfg . $salt);
 }

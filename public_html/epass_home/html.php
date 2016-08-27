@@ -1,9 +1,9 @@
 <?php
 
 function postHash($words) {
-  global $user,$url,$password,$upper,$lower,$number,$special,$size,$version;
-  $str = $user . $url . $password. $version;
-  $val = doHash($upper,$lower,$number,$special,$size,$str);
+  global $INPUT_user,$INPUT_url,$INPUT_password,$SQL_upper,$SQL_lower,$SQL_number,$SQL_special,$SQL_size,$SQL_version;
+  $str = $INPUT_user . $INPUT_url . $INPUT_password. $SQL_version;
+  $val = doHash($SQL_upper,$SQL_lower,$SQL_number,$SQL_special,$SQL_size,$str);
   return("<center>
             <pre>$words <input $style type='text' readonly='readonly' value='$val'></pre>
           </center>");
@@ -36,11 +36,11 @@ function requestHash() {
 }
 
 function passInfo() {
-  global $url, $user, $password;
+  global $INPUT_url, $INPUT_user, $INPUT_password;
   return("<center>   
-    <pre>         Website: <input $style type='text'     readonly='readonly' name = url      value='$url'></pre>
-    <pre>       User Name: <input $style type='text'     readonly='readonly' name = user     value='$user'></pre>
-    <pre> Master Password: <input $style type='password' readonly='readonly' name = password value='$password'></pre>
+    <pre>         Website: <input $style type='text'     readonly='readonly' name = url      value='$INPUT_url'></pre>
+    <pre>       User Name: <input $style type='text'     readonly='readonly' name = user     value='$INPUT_user'></pre>
+    <pre> Master Password: <input $style type='password' readonly='readonly' name = password value='$INPUT_password'></pre>
     </center>");
 } 
 
@@ -77,12 +77,12 @@ function optionSelect($name,$min,$max,$value) {
 }
 
 function characterSelection() {
-  global $upper, $lower, $number, $special, $size;
-  $upperC   = numberSelect("upper",$upper);
-  $lowerC   = numberSelect("lower",$lower);
-  $numberC  = numberSelect("number",$number); 
-  $specialC = numberSelect("special",$special);
-  $sizeSelect = optionSelect("size",8,16,$size);
+  global $SQL_upper, $SQL_lower, $SQL_number, $SQL_special, $SQL_size;
+  $upperC   = numberSelect("upper",$SQL_upper);
+  $lowerC   = numberSelect("lower",$SQL_lower);
+  $numberC  = numberSelect("number",$SQL_number); 
+  $specialC = numberSelect("special",$SQL_special);
+  $sizeSelect = optionSelect("size",8,16,$SQL_size);
   $res = 
   "<center>
    <TABLE BORDER='3' CELLSPACING='1' CELLPADDING='1'><CAPTION><pre> Character Selection </pre></CAPTION>

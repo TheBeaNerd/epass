@@ -31,8 +31,8 @@ function isChecked($value) {
 }
 
 function notNull() {
-  global $password,$user,$url;
-  if (($password == '')||($user == '')||($url == '')) {
+  global $INPUT_password,$INPUT_user,$INPUT_url;
+  if (($INPUT_password == '')||($INPUT_user == '')||($INPUT_url == '')) {
      return(False);
   } else {
      return(True);

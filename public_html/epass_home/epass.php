@@ -5,13 +5,15 @@ function epass() {
   global $generateButton, $manualButton, $passwordButton, $settingsButton, $restoreButton, $changeButton, $defaultButton;
   if (isset($manualButton)) {
     generateManualPage();
-  } elseif ((isset($settingsButton))&&(notNull())) {
+  } elseif (nullInput()) {
+    generateSplashPage();
+  } elseif (isset($settingsButton)) {
     generateSettings();
   } elseif (isset($restoreButton)) {
     restoreDefaults();
-  } elseif ((isset($changeButton))&&(notNull())) {
+  } elseif (isset($changeButton)) {
     changePassword(); 
-  } elseif ((isset($passwordButton))&&(notNull())) {
+  } elseif (isset($passwordButton)) {
     generatePassword();
   } elseif (isset($defaultButton)) {
     changeDefault();

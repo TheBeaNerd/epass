@@ -25,17 +25,12 @@ function sanitizeURL($url) {
   return $url ;
 }
 
-function isChecked($value) {
-  if (!strcmp($value,'checked')) return('checked="checked"');       
-  return('');
-}
-
-function notNull() {
+function nullInput() {
   global $INPUT_password,$INPUT_user,$INPUT_url;
   if (($INPUT_password == '')||($INPUT_user == '')||($INPUT_url == '')) {
-     return(False);
-  } else {
      return(True);
+  } else {
+     return(False);
   }
 }
 ?>

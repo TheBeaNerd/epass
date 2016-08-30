@@ -48,6 +48,18 @@ function hR() {
   return('<br><hr width="100%">');
 }
 
+function atleastSelect($name,$max,$value) {
+  $opt=array_fill(0,$max,"");
+  $opt[$value]=' selected="selected" ';
+  $res="<select name='$name'>";
+  $res .= "<option value=0  ".$opt[0].">0</option>";
+  for ($i=1;$i<=$max;$i++) {
+    $res .= "<option value='$i'  ".$opt[$i].">+ $i</option>";
+  }
+  $res .= "</select>";
+  return($res);
+}
+
 function optionSelect($name,$min,$max,$value) {
   $opt=array_fill(0,$max-$min,"");
   $opt[$value-$min]=' selected="selected" ';
@@ -62,10 +74,10 @@ function optionSelect($name,$min,$max,$value) {
 
 function characterSelection() {
   global $SQL_upper, $SQL_lower, $SQL_number, $SQL_special, $SQL_size;
-  $upperC   = optionSelect("upper",0,2,$SQL_upper);
-  $lowerC   = optionSelect("lower",0,2,$SQL_lower);
-  $numberC  = optionSelect("number",0,2,$SQL_number); 
-  $specialC = optionSelect("special",0,2,$SQL_special);
+  $upperC   = atleastSelect("upper",2,$SQL_upper);
+  $lowerC   = atleastSelect("lower",2,$SQL_lower);
+  $numberC  = atleastSelect("number",2,$SQL_number); 
+  $specialC = atleastSelect("special",2,$SQL_special);
   $sizeSelect = optionSelect("size",8,16,$SQL_size);
   $res = 
   "<center>

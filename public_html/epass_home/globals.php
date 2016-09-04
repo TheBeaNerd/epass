@@ -15,6 +15,7 @@ $passwordButton  = $_POST['passwordButton'];
 $settingsButton  = $_POST['settingsButton'];
 $restoreButton   = $_POST['restoreButton'];
 $changeButton    = $_POST['changeButton'];
+$patchButton     = $_POST['patchButton'];
 $defaultButton   = $_POST['defaultButton'];
 
 $POST_Upper       = $_POST['upper'];

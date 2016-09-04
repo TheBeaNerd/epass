@@ -1,9 +1,9 @@
 <?php
 
-function postHash($words) {
+function postHash($patch,$words) {
   global $INPUT_user,$INPUT_url,$INPUT_password,$SQL_upper,$SQL_lower,$SQL_number,$SQL_special,$SQL_size,$SQL_version;
   $str = $INPUT_user . $INPUT_url . $INPUT_password. $SQL_version;
-  $val = doHash($SQL_upper,$SQL_lower,$SQL_number,$SQL_special,$SQL_size,$str);
+  $val = doHash($patch,$SQL_upper,$SQL_lower,$SQL_number,$SQL_special,$SQL_size,$str);
   return("<center>
             <pre>$words <input $style type='text' readonly='readonly' value='$val'></pre>
           </center>");
@@ -28,11 +28,18 @@ function requestHash() {
          value="Restore Defaults"/>
 </td>
 <td align="center" colspan="3">
+  <input name="patchButton" 
+         title="Generates the patch password and the old password" 
+         type="submit"   
+         value="Patch Password"/>
+</td>
+<td align="center" colspan="3">
   <input name="defaultButton" 
          title="Changes the default settings for the website and generates the new password and old password" 
          type="submit"   
          value="Change Password"/>
-</td>');                                                   
+</td>
+');                                                   
 }
 
 function passInfo() {

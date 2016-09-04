@@ -6,12 +6,16 @@ function upass($user,$password) {
 }
 
 function selectAllowable($upper,$lower,$number,$special) {
+  // The array returned by this could be used as the
+  // natural ordeing of the ASCII characters.  ie: when
+  // we make a distribution histogram.
   $res = array();
   $index = 0;
   if (! ($upper || $lower || $number || $special)) {
     // Yay! Binary!
     $res[0]=chr(0x30);
     $res[1]=chr(0x31);
+    return($res);
   }
   if ($special) {
     for ($i=0x20;$i<=0x2F;$i++) {
@@ -168,7 +172,7 @@ function unMap($umapsize,$arr,$map) {
   return($res);
 }
 
-function passwordSpec($upper,$lower,$number,$special,$size,$entropy) {
+function passwordSpec($patch,$upper,$lower,$number,$special,$size,$entropy) {
   //
   // Invariant : $size >= $upper + $lower + $number + $special
   //
@@ -192,8 +196,11 @@ function passwordSpec($upper,$lower,$number,$special,$size,$entropy) {
     $loc = $entropy->chooseIndex($size);
 //    echo "<PRE>upper :" . $index[$loc] . "</PRE>";
     $spec[$index[$loc]] = $map;
-//    array_splice($index,$loc,1);
-    unset($index[$loc]);
+    if ($patch) {
+      array_splice($index,$loc,1);
+    } else {
+      unset($index[$loc]);
+    }
     $size--;
   }
 
@@ -203,8 +210,11 @@ function passwordSpec($upper,$lower,$number,$special,$size,$entropy) {
     $loc = $entropy->chooseIndex($size);
 //    echo "<PRE>lower :" . $index[$loc] . "</PRE>";
     $spec[$index[$loc]] = $map;
-//    array_splice($index,$loc,1);
-    unset($index[$loc]);
+    if ($patch) {
+      array_splice($index,$loc,1);
+    } else {
+      unset($index[$loc]);
+    }
     $size--;
   }
 
@@ -214,8 +224,11 @@ function passwordSpec($upper,$lower,$number,$special,$size,$entropy) {
     $loc = $entropy->chooseIndex($size);
 //    echo "<PRE>number :" . $index[$loc] . "</PRE>";
     $spec[$index[$loc]] = $map;
-//    array_splice($index,$loc,1);
-    unset($index[$loc]);
+    if ($patch) {
+      array_splice($index,$loc,1);
+    } else {
+      unset($index[$loc]);
+    }
     $size--;
   }
   
@@ -225,8 +238,11 @@ function passwordSpec($upper,$lower,$number,$special,$size,$entropy) {
     $loc = $entropy->chooseIndex($size);
 //  echo "<PRE>special :" . $index[$loc] . "</PRE>";
     $spec[$index[$loc]] = $map;
-//    array_splice($index,$loc,1);
-    unset($index[$loc]);
+    if ($patch) {
+      array_splice($index,$loc,1);
+    } else {
+      unset($index[$loc]);
+    }
     $size--;
   }
 
@@ -316,19 +332,17 @@ class Entropy {
 
 }
 
-function doHash($upper,$lower,$number,$special,$hashsize,$str) {
-  $hash = bcrypt($str);
+function doHashRaw($patch,$upper,$lower,$number,$special,$hashsize,$hash) {
   $entropy = new Entropy($hash);
-  $spec = passwordSpec($upper,$lower,$number,$special,$hashsize,$entropy);
-  //$map  = selectAllowable($upper,$lower,$number,$special);
-  //$base = count($map);
-  //echo "<PRE> hash : " . $hash . "</PRE>";
-  //$arr  = decodeString($hash);
-  //$xxx  = encodeArray($arr);
-  //echo "<PRE> xxxx : " . $xxx . "</PRE>";
-  //$raw  = remapHash($base,$hash);  
-  //$res  = unMap($hashsize,$raw,$map);
+  $spec = passwordSpec($patch,$upper,$lower,$number,$special,$hashsize,$entropy);
   $res = $entropy->randomString($spec);
-  return(htmlentities($res,ENT_QUOTES));
+  return($res);
+}
+
+function doHash($patch,$upper,$lower,$number,$special,$hashsize,$str) {
+  $hash = bcrypt($str);
+  $res = doHashRaw($patch,$upper,$lower,$number,$special,$hashsize,$hash);
+  $res = htmlentities($res,ENT_QUOTES);
+  return($res);
 }
 ?>

@@ -2,7 +2,7 @@
 
 function epass() {
   // This is the top level epass() function.
-  global $generateButton, $manualButton, $passwordButton, $settingsButton, $restoreButton, $changeButton, $defaultButton;
+  global $generateButton, $manualButton, $passwordButton, $settingsButton, $restoreButton, $patchButton, $changeButton, $defaultButton;
   if (isset($manualButton)) {
     generateManualPage();
   } elseif (nullInput()) {
@@ -13,6 +13,8 @@ function epass() {
     restoreDefaults();
   } elseif (isset($changeButton)) {
     changePassword(); 
+  } elseif (isset($patchButton)) {
+    patchPassword(); 
   } elseif (isset($passwordButton)) {
     generatePassword();
   } elseif (isset($defaultButton)) {
@@ -40,7 +42,7 @@ function generatePassword() {
     $res .= passInfo();
     setDefaultSettings();
     $res .= hR(); 
-    $res .= postHash('Copy and Paste');
+    $res .= postHash(False,'Copy and Paste');
     $res .= hR();
     $res .= closeHTML();
     echo($res);
@@ -66,7 +68,7 @@ function restoreDefaults() {
   getPostData();
   setChanges(0);
   $res .= hR();    
-  $res .= postHash('Copy and Paste');
+  $res .= postHash(False,'Copy and Paste');
   $res .= hR();
   $res .= closeHTML();
   echo($res);
@@ -78,11 +80,26 @@ function changePassword() {
   $res .= passInfo();
   setDefaultSettings();
   $res .= hR();    
-  $res .= postHash('Old Password');
+  $res .= postHash(False,'Old Password');
   $res .= hR();
   setDefaultSettings();
   setChanges(1);  
-  $res .= postHash('New Password');
+  $res .= postHash(False,'New Password');
+  $res .= hR();
+  $res .= closeHTML();
+  echo($res);
+  }
+
+function patchPassword() {
+  global $SQL_upper, $SQL_lower, $SQL_number, $SQL_special, $SQL_size, $INPUT_url, $INPUT_password, $INPUT_user;
+  $res = openHTML();
+  $res .= passInfo();
+  setDefaultSettings();
+  $res .= hR();    
+  $res .= postHash(False,'Old Password');
+  $res .= hR();
+  getPostData();
+  $res .= postHash(True,'New Password');
   $res .= hR();
   $res .= closeHTML();
   echo($res);
@@ -94,11 +111,11 @@ function changeDefault() {
   $res .= passInfo();
   setDefaultSettings();
   $res .= hR();    
-  $res .= postHash('Old Password');
+  $res .= postHash(False,'Old Password');
   $res .= hR();
   getPostData();
   setChanges(0);
-  $res .= postHash('New Password');
+  $res .= postHash(False,'New Password');
   $res .= hR();
   $res .= closeHTML();
   echo($res);

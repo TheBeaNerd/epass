@@ -2,7 +2,7 @@
 
 function epass() {
   // This is the top level epass() function.
-  global $generateButton, $manualButton, $passwordButton, $settingsButton, $restoreButton, $patchButton, $changeButton, $defaultButton;
+  global $manualButton, $passwordButton, $settingsButton, $restoreButton, $patchButton, $changeButton, $defaultButton;
   if (isset($manualButton)) {
     generateManualPage();
   } elseif (nullInput()) {
@@ -40,7 +40,7 @@ function generatePassword() {
     global $SQL_upper, $SQL_lower, $SQL_number, $SQL_special, $SQL_size, $INPUT_url, $INPUT_password, $INPUT_user;
     $res = openHTML();
     $res .= passInfo();
-    setDefaultSettings();
+    getDefaultSettings();
     $res .= hR(); 
     $res .= postHash(False,'Copy and Paste');
     $res .= hR();
@@ -52,7 +52,7 @@ function generateSettings() {
     global $SQL_upper, $SQL_lower, $SQL_number, $SQL_special, $SQL_size, $INPUT_url, $INPUT_password, $INPUT_user;
     $res = openHTML();
     $res .= passInfo();
-    setDefaultSettings();
+    getDefaultSettings();
     $res .= characterSelection();
     $res .= requestHash(); 
     $res .= hR();
@@ -64,9 +64,9 @@ function restoreDefaults() {
   global $SQL_upper, $SQL_lower, $SQL_number, $SQL_special, $SQL_size, $INPUT_url, $INPUT_password, $INPUT_user;
   $res = openHTML();
   $res .= passInfo();
-  getChangedSettings();
+  getSavedSettings();
   getPostData();
-  setChanges(0);
+  saveSettings(0);
   $res .= hR();    
   $res .= postHash(False,'Copy and Paste');
   $res .= hR();
@@ -78,12 +78,12 @@ function changePassword() {
   global $SQL_upper, $SQL_lower, $SQL_number, $SQL_special, $SQL_size, $INPUT_url, $INPUT_password, $INPUT_user;
   $res = openHTML();
   $res .= passInfo();
-  setDefaultSettings();
+  getDefaultSettings();
   $res .= hR();    
   $res .= postHash(False,'Old Password');
   $res .= hR();
-  setDefaultSettings();
-  setChanges(1);  
+  getDefaultSettings();
+  saveSettings(1);  
   $res .= postHash(False,'New Password');
   $res .= hR();
   $res .= closeHTML();
@@ -94,7 +94,7 @@ function patchPassword() {
   global $SQL_upper, $SQL_lower, $SQL_number, $SQL_special, $SQL_size, $INPUT_url, $INPUT_password, $INPUT_user;
   $res = openHTML();
   $res .= passInfo();
-  setDefaultSettings();
+  getDefaultSettings();
   $res .= hR();    
   $res .= postHash(False,'Old Password');
   $res .= hR();
@@ -109,12 +109,12 @@ function changeDefault() {
   global $SQL_upper, $SQL_lower, $SQL_number, $SQL_special, $SQL_size, $INPUT_url, $INPUT_password, $INPUT_user;
   $res = openHTML();
   $res .= passInfo();
-  setDefaultSettings();
+  getDefaultSettings();
   $res .= hR();    
   $res .= postHash(False,'Old Password');
   $res .= hR();
   getPostData();
-  setChanges(0);
+  saveSettings(0);
   $res .= postHash(False,'New Password');
   $res .= hR();
   $res .= closeHTML();

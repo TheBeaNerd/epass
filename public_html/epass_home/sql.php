@@ -1,5 +1,5 @@
 <?php
-function getChangedSettings() {
+function getSavedSettings() {
   global $INPUT_url, $INPUT_user, $INPUT_password, $SQL_upper,$SQL_lower,$SQL_number,$SQL_special,$SQL_size,$SQL_version;  
   $SQL_version = 1;
   $sql = openSQL();
@@ -19,7 +19,7 @@ function getChangedSettings() {
   mysqli_close($sql);
 }
 
-function setDefaultSettings() {
+function getDefaultSettings() {
     global $SQL_upper, $SQL_lower, $SQL_number, $SQL_special, $SQL_size, $SQL_version;
     $SQL_upper   = 1;
     $SQL_lower   = 1;
@@ -27,10 +27,10 @@ function setDefaultSettings() {
     $SQL_special = 0;
     $SQL_size    = 10;
     $SQL_version = 1;
-    getChangedSettings();
+    getSavedSettings();
 }
 
-function setChanges($change) {
+function saveSettings($change) {
   global $INPUT_url, $INPUT_user, $INPUT_password, $SQL_upper,$SQL_lower,$SQL_number,$SQL_special,$SQL_size,$SQL_version;  
   $SQL_version = $SQL_version + $change;
   $sql = openSQL();
@@ -41,7 +41,7 @@ function setChanges($change) {
     echo "<PRE>SQL: set changes failed</PRE>";
   }
   mysqli_close($sql);
-  getChangedSettings();
+  getSavedSettings();
 }
 
 function openSQL () {

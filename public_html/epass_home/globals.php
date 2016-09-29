@@ -9,7 +9,6 @@ $INPUT_url       = sanitizeURL($_POST['url']);
 $INPUT_user      = sanitizeUser($_POST['user']);
 $INPUT_password  = $_POST['password'];
 
-$generateButton  = $_POST['generateButton'];
 $manualButton    = $_POST['manualButton'];
 $passwordButton  = $_POST['passwordButton'];
 $settingsButton  = $_POST['settingsButton'];

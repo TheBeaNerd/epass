@@ -42,7 +42,7 @@ function generatePassword() {
     $res .= passInfo();
     getDefaultSettings();
     $res .= hR(); 
-    $res .= postHash(False,'Copy and Paste');
+    $res .= postHash(True,'Copy and Paste');
     $res .= hR();
     $res .= closeHTML();
     echo($res);
@@ -68,7 +68,7 @@ function restoreDefaults() {
   getPostData();
   saveSettings(0);
   $res .= hR();    
-  $res .= postHash(False,'Copy and Paste');
+  $res .= postHash(True,'Copy and Paste');
   $res .= hR();
   $res .= closeHTML();
   echo($res);
@@ -80,11 +80,11 @@ function changePassword() {
   $res .= passInfo();
   getDefaultSettings();
   $res .= hR();    
-  $res .= postHash(False,'Old Password');
+  $res .= postHash(True,'Old Password');
   $res .= hR();
   getDefaultSettings();
   saveSettings(1);  
-  $res .= postHash(False,'New Password');
+  $res .= postHash(True,'New Password');
   $res .= hR();
   $res .= closeHTML();
   echo($res);
@@ -95,7 +95,7 @@ function patchPassword() {
   $res = openHTML();
   $res .= passInfo();
   getDefaultSettings();
-  $res .= hR();    
+  $res .= hR();
   $res .= postHash(False,'Old Password');
   $res .= hR();
   getPostData();
@@ -111,11 +111,11 @@ function changeDefault() {
   $res .= passInfo();
   getDefaultSettings();
   $res .= hR();    
-  $res .= postHash(False,'Old Password');
+  $res .= postHash(True,'Old Password');
   $res .= hR();
   getPostData();
   saveSettings(0);
-  $res .= postHash(False,'New Password');
+  $res .= postHash(True,'New Password');
   $res .= hR();
   $res .= closeHTML();
   echo($res);

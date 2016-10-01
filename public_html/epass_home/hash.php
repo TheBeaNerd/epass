@@ -77,7 +77,6 @@ function bcrypt($input) {
   $salt = salt($input);
   $size = strlen($salt);
   $z = crypt($input,$salt);
-  //echo "<PRE>" . $z . "</PRE>";
   //$val = str_replace($salt,"",$z);
   $val = substr($z,$size);
   return($val);

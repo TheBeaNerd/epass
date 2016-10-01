@@ -1,4 +1,9 @@
-all: epass_home.tar.gz
+.PHONY: test
+
+all: test epass_home.tar.gz
+
+test:
+	cd test; ./test.php
 
 epass_home.tar:
 	tar --directory public_html -cvf epass_home.tar epass_home favicon.ico epass.php

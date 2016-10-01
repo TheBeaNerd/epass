@@ -1,27 +1,47 @@
+Visit the website and enter:
 
-        Website : test.com
-      User Name : joe
-Master Password : abcd
+|         Website : test.com
+|       User Name : joe
+| Master Password : abcd
 
 Generate Password ->
 
-  Copy and Paste: ECnwukeq4H
+|   Copy and Paste: ECnwu7WaOS
 
 URL Settings ->
-  o 16 characters, Special Characters +1
-
-  New Password : {7@d\kRm E3J~wkB
-
-URL Settings ->
-  o 10 characters, Special Characters none
-
-  Old Password : {7@d\kRm E3J~wkB
-  New Password : ECnwukeq4H
+  o 16 characters
+  o Special Characters +1
 
 Change Password ->
 
-  Old Password : ECnwukeq4H
-  New Password : W8T4nnCscd
+|   Old Password : ECnwu7WaOS
+|   New Password : {7@d\kRm E3J~wkB
+
+URL Settings ->
+  o 10 characters
+  o Special Characters 0
+
+Change Password ->
+
+|   New Password : ECnwu7WaOS
+|   Old Password : {7@d\kRm E3J~wkB
+
+Change Password ->
+
+|   Old Password : ECnwu7WaOS
+|   New Password : W8T4nnCscd
+
+URL Settings ->
+  o 16 characters
+  o Upper Case +2
+  o Lower Case +2
+  o Digits +2
+  o Special Characters +2
+
+Change Password ->
+
+|   Old Password : W8T4nnCscd
+|   New Password : Yg7\$8FePYFX;T_<
 
 < Now, delete SQL entry >
 

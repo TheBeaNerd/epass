@@ -1,6 +1,8 @@
 .PHONY: test
 
-all: test epass_home.tar.gz
+all: epass_home.tar.gz
+
+dist: test epass_home.tar.gz
 
 test:
 	cd test; ./test.php

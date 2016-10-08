@@ -1,14 +1,17 @@
+<!doctype html>
 <html style="height: 100%;">
-<head>
-	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-	<title>ePass</title>
-        <link rel="icon"  href="http://thegreves.com/favicon.ico" type="image/x-icon" />
-	<style type="text/css">
-td {font-family: courier; font-size: 16px; font-size: 4vh;}
-input {font-family: courier; font-size: 16px; font-size: 4vh;}
-	</style>
-<script>
-function scorePassword(pass) {
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>ePass</title>
+    <link rel="icon"  href="http://thegreves.com/favicon.ico" type="image/x-icon" />
+    <style type='text/css'>
+option {font-family: courier; font-size: 3vh;}
+select {font-family: courier; font-size: 3vh;}
+td {font-family: courier; font-size: 3vh;}
+input {font-family: courier; font-size: 3vh;}
+    </style>
+    <script>
+function passwordScore(pass) {
     var score = 0;
     if (!pass)
         return score;
@@ -37,8 +40,8 @@ function scorePassword(pass) {
     return parseInt(score);
 }
 
-function checkPassStrength(pass) {
-    var score = scorePassword(pass);
+function passwordAdjective(pass) {
+    var score = passwordScore(pass);
     if (score > 80)
         return "strong";
     if (score > 60)
@@ -48,66 +51,74 @@ function checkPassStrength(pass) {
 
 function updateScore() {
     var pass = document.getElementById('password').value;
-    document.getElementById('strength_human').innerHTML = checkPassStrength(pass);
-    document.getElementById('strength_score').innerHTML = scorePassword(pass);
+    document.getElementById('strength_adjective').innerHTML = passwordAdjective(pass);
+    document.getElementById('strength_score').innerHTML = passwordScore(pass);
 }
 </script>
 </head>
 <body alink="#ff0000" bgcolor="#ffdead" link="#0000ee" style="height: 100%;" text="#000000" vlink="#551a8b">
 <form action="epass.php" method="post" name="splash">
-
 <table align="center">
-	<tbody>
-		<tr>
-			<td>
-			<pre> </pre>
-			</td>
-                        <td>
-			<pre> </pre>
-			</td>
-			<td>
-			<pre> </pre>
-			</td>
-		</tr>
-		<tr>
-			<td align="right">Website</td>
-			<td>
-			<pre> </pre>
-			</td>
-			<td><input name="url" title="Enter the URL of the website requesting a password" type="text" value="google.com" /></td>
-		</tr>
-		<tr>
-			<td align="right">User Name</td>
-			<td>
-			<pre> </pre>
-			</td>
-			<td><input name="user" title="Enter your name or online user name" type="text" value="" /></td>
-		</tr>
-		<tr>
-			<td align="right">Master Password</td>
-			<td>
-			<pre> </pre>
-			</td>
-			<td><input id="password" name="password" title="Enter your master password" type="password" value="" onkeypress="updateScore()" onkeyup="updateScore()" /></td>
-		</tr>
-                <tr>
-			<td align="center" colspan="3">
-			<p>Strength: <font id="strength_score"></font> (<font id="strength_human"></font>)</p>
-			</td>
-		</tr>
-		<tr>
-			<td align="center" colspan="3"><input name="passwordButton" title="Generate password using the URL default settings" type="submit" value="Generate Password" /></td>
-		</tr>
-		<tr>
-		<td align="center" colspan="3"><input name="changeButton" title="Change the password at this URL" type="submit" value="  Change Password  " /> </td>			
-		</tr>
-		<tr><td align="center" colspan="3"><input name="settingsButton" title="Change default settings for this URL" type="submit" value="   URL Settings    " /></td>
-			</tr>
-		<tr>
-			<td align="center" colspan="3"><input name="manualButton" title="The ePass manual" type="submit"   
-value="      Manual       "/></td>
-		</tr>
-	</tbody>
+  <tbody>
+    <tr>
+      <td>
+	<pre> </pre>
+      </td>
+      <td>
+	<pre> </pre>
+      </td>
+      <td>
+	<pre> </pre>
+      </td>
+    </tr>
+    <tr>
+      <td align="right">Website</td>
+      <td>
+        <pre> </pre>
+      </td>
+      <td>
+        <input name="url" title="Enter the URL of the website requesting a password" type="text" value="google.com" />
+      </td>
+    </tr>
+    <tr>
+      <td align="right">User Name</td>
+      <td>
+	<pre> </pre>
+      </td>
+      <td>
+        <input name="user" title="Enter your name or online user name" type="text" value="" />
+      </td>
+    </tr>
+    <tr>
+      <td align="right">Master Password</td>
+      <td>
+	<pre> </pre>
+      </td>
+      <td>
+        <input id="password" name="password" title="Enter your master password" type="password" value="" onkeypress="updateScore()" onkeyup="updateScore()" />
+      </td>
+    </tr>
+    <tr>
+      <td align="center" colspan="3">
+	<p>Strength: <font id="strength_score"></font> (<font id="strength_adjective"></font>)</p>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" colspan="3">
+        <input name="passwordButton" title="Generate password using the URL default settings" type="submit" value="Generate Password" />
+      </td>
+    </tr>
+    <tr>
+      <td align="center" colspan="3">
+        <input name="settingsButton" title="Change default settings for this URL" type="submit" value="   URL Settings    " />
+      </td>
+    </tr>
+    <tr>
+      <td align="center" colspan="3">
+        <input name="manualButton" title="The ePass manual" type="submit" value="      Manual       "/>
+      </td>
+    </tr>
+  </tbody>
 </table>
 </form>
 </body>

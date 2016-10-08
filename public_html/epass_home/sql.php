@@ -1,5 +1,5 @@
 <?php
-function getSavedSettings() {
+function getSQLSettings() {
   global $INPUT_url, $INPUT_user, $INPUT_password, $SQL_upper,$SQL_lower,$SQL_number,$SQL_special,$SQL_size,$SQL_version;  
   $SQL_version = 1;
   $sql = openSQL();
@@ -19,29 +19,43 @@ function getSavedSettings() {
   mysqli_close($sql);
 }
 
-function getDefaultSettings() {
-    global $SQL_upper, $SQL_lower, $SQL_number, $SQL_special, $SQL_size, $SQL_version;
-    $SQL_upper   = 1;
-    $SQL_lower   = 1;
-    $SQL_number  = 1;
-    $SQL_special = 0;
-    $SQL_size    = 10;
-    $SQL_version = 1;
-    getSavedSettings();
+function getSavedSettings() {
+    global $SQL_upper, $SQL_lower, $SQL_number, $SQL_special, $SQL_size, $SQL_version, $SQL_versionInc;
+    $SQL_upper      = 1;
+    $SQL_lower      = 1;
+    $SQL_number     = 1;
+    $SQL_special    = 0;
+    $SQL_size       = 10;
+    $SQL_version    = 1;
+    $SQL_versionInc = 0;
+    getSQLSettings();
 }
 
-function saveSettings($change) {
-  global $INPUT_url, $INPUT_user, $INPUT_password, $SQL_upper,$SQL_lower,$SQL_number,$SQL_special,$SQL_size,$SQL_version;  
-  $SQL_version = $SQL_version + $change;
-  $sql = openSQL();
-  $ID = upass($INPUT_user,$INPUT_password);
-  $query = "REPLACE INTO USERS(ID, USERNAME, URL, UPPER, LOWER, SPECIAL, NUMBER, SIZE, VERSION) VALUES ('$ID', '$INPUT_user', '$INPUT_url', '$SQL_upper', '$SQL_lower', '$SQL_special', '$SQL_number', $SQL_size, $SQL_version)";
-  $result = mysqli_query($sql, $query);
-  if (result === false) {
-    echo "<PRE>SQL: set changes failed</PRE>";
-  }
-  mysqli_close($sql);
-  getSavedSettings();
+function saveSettings() {
+    global $INPUT_url, $INPUT_user, $INPUT_password, $SQL_upper,$SQL_lower,$SQL_number,$SQL_special,$SQL_size,$SQL_version,$SQL_versionInc;  
+    $SQL_version = $SQL_version + $SQL_versionInc;
+    if ($SQL_version < 1) {
+        $SQL_version = 1;
+    }
+    $sql = openSQL();
+    $ID = upass($INPUT_user,$INPUT_password);
+    $query = "REPLACE INTO USERS(ID, USERNAME, URL, UPPER, LOWER, SPECIAL, NUMBER, SIZE, VERSION) VALUES ('$ID', '$INPUT_user', '$INPUT_url', '$SQL_upper', '$SQL_lower', '$SQL_special', '$SQL_number', $SQL_size, $SQL_version)";
+    //
+    // Don't store (just delete) default configuration ..
+    //
+    if (($SQL_size    == 10) and 
+        ($SQL_upper   == 1) and 
+        ($SQL_lower   == 1) and 
+        ($SQL_number  == 1) and 
+        ($SQL_special == 0) and 
+        ($SQL_version == 1)) {
+        $query = "DELETE FROM USERS WHERE ID='$ID'";
+    }
+    $result = mysqli_query($sql, $query);
+    if (result === false) {
+        echo "<PRE>SQL: set changes failed</PRE>";
+    }
+    mysqli_close($sql);
 }
 
 function openSQL () {

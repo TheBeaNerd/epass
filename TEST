@@ -6,43 +6,143 @@ Visit the website and enter:
 
 Generate Password ->
 
+|          Website: test.com
 |   Copy and Paste: ECnwu7WaOS
 
+Return ->
+
+|         Website : test.com
+|       User Name : joe
+| Master Password : abcd
+
 URL Settings ->
-  o 16 characters
-  o Special Characters +1
 
-Change Password ->
+  o Size      10 -> 16
+  o Uppercase +1
+  o Lowercase +1
+  o Digits    +1
+  o Special    0 -> +1
+  o Version    1 (Unchanged)
 
+Preview ->
+
+|        Website : test.com
 |   Old Password : ECnwu7WaOS
 |   New Password : {7@d\kRm E3J~wkB
 
+Save Updates ->
+
+|         Website : test.com
+|       User Name : joe
+| Master Password : abcd
+
+Generate Password ->
+
+|          Website: test.com
+|   Copy and Paste: {7@d\kRm E3J~wkB
+
+Return ->
+
+|         Website : test.com
+|       User Name : joe
+| Master Password : abcd
+
 URL Settings ->
-  o 10 characters
-  o Special Characters 0
 
-Change Password ->
+  o Size      16 -> 10
+  o Uppercase +1
+  o Lowercase +1
+  o Digits    +1
+  o Special   +1 -> 0
+  o Version  (1) Unchanged
 
-|   New Password : ECnwu7WaOS
+Preview ->
+
+|        Website : test.com
 |   Old Password : {7@d\kRm E3J~wkB
+|   New Password : ECnwu7WaOS
 
-Change Password ->
+Save Updates ->
 
+|         Website : test.com
+|       User Name : joe
+| Master Password : abcd
+
+URL Settings ->
+
+  o Size      10
+  o Uppercase +1
+  o Lowercase +1
+  o Digits    +1
+  o Special    0
+  o Version:   1 -> Update +1
+
+Preview ->
+
+|        Website : test.com
 |   Old Password : ECnwu7WaOS
 |   New Password : W8T4nnCscd
 
+Save Updates ->
+
+|         Website : test.com
+|       User Name : joe
+| Master Password : abcd
+
+Generate Password ->
+
+|     Website: test.com
+|   Copy/Pase: W8T4nnCscd
+
+Return ->
+
+|         Website : test.com
+|       User Name : joe
+| Master Password : abcd
+
 URL Settings ->
-  o 16 characters
-  o Upper Case +2
-  o Lower Case +2
-  o Digits +2
-  o Special Characters +2
 
-Change Password ->
+  o Size      10 -> 16
+  o Uppercase +1 -> +2
+  o Lowercase +1 -> +2
+  o Digits    +1 -> +2
+  o Special    0 -> +2
+  o Version:   2 (Unchanged)
 
+Preview ->
+
+|        Website : test.com
 |   Old Password : W8T4nnCscd
 |   New Password : Yg7\$8FePYFX;T_<
 
-< Now, delete SQL entry >
+Save ->
 
-- Perhaps we should provide a "rollback" feature?
+|         Website : test.com
+|       User Name : joe
+| Master Password : abcd
+
+Generate Password ->
+
+| Website: test.com
+| Copy/Pase : Yg7\$8FePYFX;T_<
+
+Return ->
+
+|         Website : test.com
+|       User Name : joe
+| Master Password : abcd
+
+URL Settings ->
+
+  o Size      16 -> 10
+  o Uppercase +2 -> +1
+  o Lowercase +2 -> +1
+  o Digits    +2 -> +1
+  o Special   +2 ->  0
+  o Version:   2 -> Rollback -1
+
+Preview ->
+
+|      Website : test.com
+| Old Password : Yg7\$8FePYFX;T_<
+| New Password : ECnwu7WaOS

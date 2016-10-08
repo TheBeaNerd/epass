@@ -1,58 +1,84 @@
 <?php
 
+function mainTable($rows) {
+  $res = "<!doctype html>
+<html style='height: 100%;'>
+  <head>
+    <meta http-equiv='content-type' content='text/html; charset=windows-1252'/>
+    <title>epass</title>
+    <style type='text/css'>
+option {font-family: courier; font-size: 3vh;}
+select {font-family: courier; font-size: 3vh;}
+td {font-family: courier; font-size: 3vh;}
+input {font-family: courier; font-size: 3vh;}
+    </style>
+  </head>
+  <body alink='#ff0000' bgcolor='#ffdead' link='#0000ee' style='height: 100%;' text='#000000' vlink='#551a8b'>
+    <form name='splash' method='post' action='epass.php'>
+      <table align='center'>
+        <tbody>\n";
+  $res .= $rows;
+  $res .= "</tbody>
+      </table>
+    </form>
+  </body>
+</html>\n";
+  return($res);
+}
+
+function tableRow($entry) {
+    $res  = "          <tr>
+             <td>
+               <center>\n";
+    $res .= $entry;
+    $res .= "               </center>
+             </td>
+           </tr>\n";
+    return($res);
+}
+
 function postHash($patch,$words) {
-  global $INPUT_user,$INPUT_url,$INPUT_password,$SQL_upper,$SQL_lower,$SQL_number,$SQL_special,$SQL_size,$SQL_version;
-  $str = $INPUT_user . $INPUT_url . $INPUT_password. $SQL_version;
-  $val = doHash($patch,$SQL_upper,$SQL_lower,$SQL_number,$SQL_special,$SQL_size,$str);
-  return("<center>
-            <pre>$words <input $style type='text' readonly='readonly' value='$val'></pre>
-          </center>");
+    global $INPUT_user,$INPUT_url,$INPUT_password,$SQL_upper,$SQL_lower,$SQL_number,$SQL_special,$SQL_size,$SQL_version,$SQL_versionInc;
+    $version = $SQL_version + $SQL_versionInc;
+    if ($version < 1) {
+        $version = 1;
+    }
+    $str = $INPUT_user . $INPUT_url . $INPUT_password. $version;
+    $val = doHash($patch,$SQL_upper,$SQL_lower,$SQL_number,$SQL_special,$SQL_size,$str);
+    $res  = "      <center>\n";
+    $res .= "        <font>" . $words . "&nbsp;</font><input $style type='text' readonly='readonly' value='$val'>\n";
+    $res .= "      </center>\n";
+    return($res);
 }
 
-function openHTML() {
-  $res = '<html><head><title>epass</title><style type="text/css"></style></head><body text="#000000" bgcolor="#ffdead" link="#0000ee" vlink="#551a8b" alink="#ff0000"><form name="splash" method="post" action="epass.php">';
-  return($res);
-  }
-  
-function closeHTML() {
-  $res = '</html></body></form>';
-  return($res);
-}
-
-function requestHash() {
-  return('
-<td align="center" colspan="3">
-  <input name="restoreButton" 
-         title="Restores the default settings for the website and generates the new password" 
-         type="submit"   
-         value="Restore Defaults"/>
-</td>
-<td align="center" colspan="3">
-  <input name="patchButton" 
-         title="Generates the patch password and the old password" 
-         type="submit"   
-         value="Patch Password"/>
-</td>
-<td align="center" colspan="3">
-  <input name="defaultButton" 
-         title="Changes the default settings for the website and generates the new password and old password" 
-         type="submit"   
-         value="Change Password"/>
-</td>
-');                                                   
-}
-
-function passInfo() {
+function passInfo($padding) {
   global $INPUT_url, $INPUT_user, $INPUT_password;
-  return("<center>   
-    <pre>         Website: <input $style type='text'     readonly='readonly' name = url      value='$INPUT_url'></pre>
-    <pre>       User Name: <input $style type='text'     readonly='readonly' name = user     value='$INPUT_user'></pre>
-    <pre> Master Password: <input $style type='password' readonly='readonly' name = password value='$INPUT_password'></pre>
-    </center>");
+  return("
+      <center>
+        <font>" . $padding . "Website:&nbsp;</font><input $style type='text'                 readonly='readonly' name='url'      value='$INPUT_url'>
+                       <input $style type='text' hidden='hidden' readonly='readonly' name='user'     value='$INPUT_user'>
+                       <input $style type='text' hidden='hidden' readonly='readonly' name='password' value='$INPUT_password'>
+      </center>\n");
+} 
+
+function settingInfo($padding) {
+  global $INPUT_user,$INPUT_url,$INPUT_password,$SQL_upper,$SQL_lower,$SQL_number,$SQL_special,$SQL_size,$SQL_versionInc;
+  return("
+      <center>
+        <font>" . $padding . "Website: </font><input $style type='text'                 readonly='readonly' name='url'      value='$INPUT_url'>
+                       <input $style type='text' hidden='hidden' readonly='readonly' name='user'     value='$INPUT_user'>
+                       <input $style type='text' hidden='hidden' readonly='readonly' name='password' value='$INPUT_password'>
+                       <input $style type='text' hidden='hidden' readonly='readonly' name='upper'    value='$SQL_upper'>
+                       <input $style type='text' hidden='hidden' readonly='readonly' name='lower'    value='$SQL_lower'>
+                       <input $style type='text' hidden='hidden' readonly='readonly' name='number'   value='$SQL_number'>
+                       <input $style type='text' hidden='hidden' readonly='readonly' name='special'  value='$SQL_special'>
+                       <input $style type='text' hidden='hidden' readonly='readonly' name='size'     value='$SQL_size'>
+                       <input $style type='text' hidden='hidden' readonly='readonly' name='versionInc'  value='$SQL_versionInc'>
+      </center>\n");
 } 
 
 function hR() {
-  return('<br><hr width="100%">');
+  return('      <br><hr width="100%">' . "\n");
 }
 
 function atleastSelect($name,$max,$value) {
@@ -81,31 +107,179 @@ function optionSelect($name,$min,$max,$value) {
 
 function characterSelection() {
   global $SQL_upper, $SQL_lower, $SQL_number, $SQL_special, $SQL_size;
+  $sizeSelect = optionSelect("size",8,24,$SQL_size);
   $upperC   = atleastSelect("upper",2,$SQL_upper);
   $lowerC   = atleastSelect("lower",2,$SQL_lower);
   $numberC  = atleastSelect("number",2,$SQL_number); 
   $specialC = atleastSelect("special",2,$SQL_special);
-  $sizeSelect = optionSelect("size",8,16,$SQL_size);
   $res = 
-  "<center>
-   <TABLE BORDER='3' CELLSPACING='1' CELLPADDING='1'><CAPTION><pre> Character Selection </pre></CAPTION>
-   <TR>
-     <TD ALIGN = 'center'><pre> Number of Characters </pre></TD>
-     <TD ALIGN = 'center'><pre> Upper Case </pre></TD>
-     <TD ALIGN = 'center'><pre> Lower Case </pre></TD>
-     <TD ALIGN = 'center'><pre> Digits </pre></TD>
-     <TD ALIGN = 'center'><pre> Special Characters </pre></TD>
-    </TR>
-   <TR>
-     <TD ALIGN=  'center'><pre>8-16</pre> $sizeSelect  </TD>
-     <TD ALIGN = 'center'><pre>A-Z</pre> $upperC   </TD>
-     <TD ALIGN = 'center'><pre>a-z</pre> $lowerC   </TD>
-     <TD ALIGN = 'center'><pre>0-9</pre> $numberC </TD>
-     <TD ALIGN = 'center'><pre>".htmlentities("!@#$%^&*,",ENT_QUOTES)."etc</pre> $specialC </TD>
-    </TR>
-   </TABLE>
-   <p></p>";
-  $res .= "";
+"          <tr>
+            <td>
+              <br/>
+              <center>
+                <table cellspacing='1' cellpadding='5' border='3'>
+                  <tbody>
+                    <tr>
+                      <th align='center' valign='middle'>Setting</th>
+                      <th align='center' valign='middle'>&nbsp;Value&nbsp;</th>
+                      <th align='center' valign='middle'>Range</th>
+                    </tr>
+                    <tr>
+                      <td align='center' valign='middle'>Size</td>
+                      <td align='center' valign='middle'>
+                        $sizeSelect
+                      </td>
+                      <td align='center' valign='middle'>8 .. 24</td>
+                    </tr>
+                    <tr>
+                      <td align='center' valign='middle'>&nbsp;Uppercase&nbsp;</td>
+                      <td align='center' valign='middle'>
+                        $upperC
+                      </td>
+                      <td align='center' valign='middle'>A .. Z</td>
+                    </tr>
+                    <tr>
+                      <td align='center' valign='middle'>Lowercase</td>
+                      <td align='center' valign='middle'>
+                        $lowerC
+                      </td>
+                      <td align='center' valign='middle'>a .. z</td>
+                    </tr>
+                    <tr>
+                      <td align='center' valign='middle'>Digits</td>
+                      <td align='center' valign='middle'>
+                        $numberC
+                      </td>
+                      <td align='center' valign='middle'>0 .. 9</td>
+                    </tr>
+                    <tr>
+                      <td align='center' valign='middle'>Special</td>
+                      <td align='center' valign='middle'>
+                        $specialC
+                      </td>
+                      <td align='center' valign='middle'>&nbsp;!@#$%^&amp;*&nbsp;</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </center>
+          </tr>\n";
   return($res);
 }
+
+function versionSelection() {
+    global $SQL_version;
+    $res =
+"          <tr>
+            <td>
+              <br/>
+              <center>
+                <table cellspacing='1' cellpadding='5' border='3'>
+                  <tbody>
+                    <tr>
+                      <td align='center' valign='middle'><b>&nbsp;Version&nbsp;</b></td>
+                      <td align='center' valign='middle'><font>&nbsp;".$SQL_version."&nbsp;</font></td>
+                      <td>
+                        <select name='versionInc' title='Update Password Version' >
+                          <option value='0' selected='selected'>Unchanged</option>
+                          <option value='1'>Update +1</option>
+                          <option value='-1'>Rollback &minus;1</option>
+                        </select>  
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </center>
+            </td>
+          </tr>\n";
+  return($res);
+}
+
+function returnButton() {
+    $res = 
+'          <tr>
+            <td>
+              <br/>
+              <center>
+                <input name="returnButton"
+                       value="&nbsp;Return&nbsp;"
+                       title="Return to the ePass Home Page" 
+                       type="submit"
+                       />
+              </center>
+            </td>
+          </tr>
+';
+    return($res);
+}
+
+function configurationButtons() {
+  return('
+          <tr>
+            <td>
+              <br/>
+              <center>
+                <input name="previewButton" 
+                       value="&nbsp; Preview&nbsp; "
+                       type="submit"   
+                       title="Preview Configuration Results"
+                       />
+              </center>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <center>
+                <input name="returnButton" 
+                       value="&nbsp;  Abort  &nbsp;"
+                       title="Return to the ePass Home Page" 
+                       type="submit"   
+                       />
+              </center>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <center>
+                <input name="patchButton" 
+                       value="&nbsp;  Patch  &nbsp;"
+                       title="Generates a Patched Password" 
+                       type="submit"   
+                        />
+              </center>
+            </td>
+          </tr>
+');                                                   
+}
+
+function previewButtons() {
+    $res = 
+"          <tr>
+            <td>
+              <br/>
+              <center>
+                <input name='applyButton' 
+                       value='&nbsp;Save Updates&nbsp;&nbsp;'
+                       title='Save the new settings for this URL' 
+                       type='submit'
+                       />
+              </center>
+            </td>
+          </tr>
+";
+    $res .=
+'          <tr>
+            <td>
+              <center>
+                <input name="returnButton" 
+                       value="Discard Updates"
+                       title="Return to the ePass Home Page" 
+                       type="submit"   
+                       />
+              </center>
+            </td>
+          </tr>
+';
+    return($res);
+}
+
 ?>

@@ -17,12 +17,12 @@ $returnButton    = $_POST['returnButton'];
 $patchButton     = $_POST['patchButton'];
 $applyButton     = $_POST['applyButton'];
 
-$POST_Size        = $_POST['size'];
-$POST_Upper       = $_POST['upper'];
-$POST_Lower       = $_POST['lower'];
-$POST_Number      = $_POST['number'];
-$POST_Special     = $_POST['special'];
-$POST_VersionInc  = $_POST['versionInc'];
+$POST_Size       = $_POST['size'];
+$POST_Upper      = $_POST['upper'];
+$POST_Lower      = $_POST['lower'];
+$POST_Number     = $_POST['number'];
+$POST_Special    = $_POST['special'];
+$POST_VersionInc = $_POST['versionInc'];
 
 $SQL_upper       = 1;
 $SQL_lower       = 1;

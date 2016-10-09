@@ -53,21 +53,27 @@ function postHash($patch,$words) {
 
 function passInfo($padding) {
   global $INPUT_url, $INPUT_user, $INPUT_password;
+  $ENC_url = htmlentities($INPUT_url,ENT_QUOTES);
+  $ENC_user = htmlentities($INPUT_user,ENT_QUOTES);
+  $ENC_password = htmlentities($INPUT_password,ENT_QUOTES);
   return("
       <center>
-        <font>" . $padding . "Website:&nbsp;</font><input $style type='text'                 readonly='readonly' name='url'      value='$INPUT_url'>
-                       <input $style type='text' hidden='hidden' readonly='readonly' name='user'     value='$INPUT_user'>
-                       <input $style type='text' hidden='hidden' readonly='readonly' name='password' value='$INPUT_password'>
+        <font>" . $padding . "Website:&nbsp;</font><input $style type='text' readonly='readonly' name='url' value='$ENC_url'>
+                       <input $style type='text' hidden='hidden' readonly='readonly' name='user'     value='$ENC_user'>
+                       <input $style type='text' hidden='hidden' readonly='readonly' name='password' value='$ENC_password'>
       </center>\n");
 } 
 
 function settingInfo($padding) {
   global $INPUT_user,$INPUT_url,$INPUT_password,$SQL_upper,$SQL_lower,$SQL_number,$SQL_special,$SQL_size,$SQL_versionInc;
+  $ENC_url = htmlentities($INPUT_url,ENT_QUOTES);
+  $ENC_user = htmlentities($INPUT_user,ENT_QUOTES);
+  $ENC_password = htmlentities($INPUT_password,ENT_QUOTES);
   return("
       <center>
-        <font>" . $padding . "Website: </font><input $style type='text'                 readonly='readonly' name='url'      value='$INPUT_url'>
-                       <input $style type='text' hidden='hidden' readonly='readonly' name='user'     value='$INPUT_user'>
-                       <input $style type='text' hidden='hidden' readonly='readonly' name='password' value='$INPUT_password'>
+        <font>" . $padding . "Website: </font><input $style type='text' readonly='readonly' name='url' value='$ENC_url'>
+                       <input $style type='text' hidden='hidden' readonly='readonly' name='user'     value='$ENC_user'>
+                       <input $style type='text' hidden='hidden' readonly='readonly' name='password' value='$ENC_password'>
                        <input $style type='text' hidden='hidden' readonly='readonly' name='upper'    value='$SQL_upper'>
                        <input $style type='text' hidden='hidden' readonly='readonly' name='lower'    value='$SQL_lower'>
                        <input $style type='text' hidden='hidden' readonly='readonly' name='number'   value='$SQL_number'>

@@ -77,7 +77,11 @@ function updateScore() {
         <pre> </pre>
       </td>
       <td>
-        <input name="url" title="Enter the URL of the website requesting a password" type="text" value="google.com" />
+        <input name="url" 
+               title="Enter the URL of the website requesting a password" 
+               type="text" 
+               value="<?php global $INPUT_url; print htmlentities($INPUT_url,ENT_QUOTES); ?>" 
+        />
       </td>
     </tr>
     <tr>
@@ -86,7 +90,11 @@ function updateScore() {
 	<pre> </pre>
       </td>
       <td>
-        <input name="user" title="Enter your name or online user name" type="text" value="" />
+        <input name="user" 
+               title="Enter your name or online user name" 
+               type="text" 
+               value="<?php global $INPUT_user; print $INPUT_user ? htmlentities($INPUT_user,ENT_QUOTES) : ""; ?>" 
+        />
       </td>
     </tr>
     <tr>
@@ -95,7 +103,14 @@ function updateScore() {
 	<pre> </pre>
       </td>
       <td>
-        <input id="password" name="password" title="Enter your master password" type="password" value="" onkeypress="updateScore()" onkeyup="updateScore()" />
+        <input id="password" 
+               name="password" 
+               title="Enter your master password" 
+               type="password" 
+               value=""
+               onkeypress="updateScore()" 
+               onkeyup="updateScore()" 
+        />
       </td>
     </tr>
     <tr>

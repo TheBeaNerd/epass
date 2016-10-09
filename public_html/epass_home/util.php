@@ -10,7 +10,7 @@ function sanitizeUser($user) {
 function sanitizeURL($url) {
   $LCurl = strtolower($url);
   preg_match('%(?:http[s]?://|ftp://|file://)?(?:www.)?([a-zA-Z0-9\_\-\.]+)%', $LCurl, $result );
-  $x = "thegreves.com";
+  $x = "google.com";
   if (sizeof($result) > 1) {
     $x = $result[1];
   }

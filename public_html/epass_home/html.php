@@ -1,16 +1,34 @@
 <?php
 
 function mainTable($rows) {
-  $res = "<!doctype html>
+  $res = "<!DOCTYPE html>
 <html style='height: 100%;'>
   <head>
     <meta http-equiv='content-type' content='text/html; charset=windows-1252'/>
     <title>epass</title>
     <style type='text/css'>
+@font-face {
+	font-family: Password;
+	src: url('https://ns162.websitewelcome.com/~dagreve/passwordFonts/Password.eot');
+	src: url('https://ns162.websitewelcome.com/~dagreve/passwordFonts/Password.eot?#iefix') format('embedded-opentype'),
+	     url('https://ns162.websitewelcome.com/~dagreve/passwordFonts/Password.woff2') format('woff2'),
+	     url('https://ns162.websitewelcome.com/~dagreve/passwordFonts/Password.woff') format('woff'),
+	     url('https://ns162.websitewelcome.com/~dagreve/passwordFonts/Password.ttf') format('truetype'),
+	     url('https://ns162.websitewelcome.com/~dagreve/passwordFonts/Password.svg#Password') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+input {
+  font-family: courier; 
+  font-size: 3vh;
+}
+input.password {
+  font-family: Password;
+  font-size: 3vh;
+}
 option {font-family: courier; font-size: 3vh;}
 select {font-family: courier; font-size: 3vh;}
 td {font-family: courier; font-size: 3vh;}
-input {font-family: courier; font-size: 3vh;}
     </style>
   </head>
   <body alink='#ff0000' bgcolor='#ffdead' link='#0000ee' style='height: 100%;' text='#000000' vlink='#551a8b'>
@@ -46,7 +64,7 @@ function postHash($patch,$words) {
     $str = $INPUT_user . $INPUT_url . $INPUT_password. $version;
     $val = doHash($patch,$SQL_upper,$SQL_lower,$SQL_number,$SQL_special,$SQL_size,$str);
     $res  = "      <center>\n";
-    $res .= "        <font>" . $words . "&nbsp;</font><input $style type='text' readonly='readonly' value='$val'>\n";
+    $res .= "        <font>" . $words . "&nbsp;</font><input class='password' type='text' readonly='readonly' value='$val'>\n";
     $res .= "      </center>\n";
     return($res);
 }
@@ -58,9 +76,9 @@ function passInfo($padding) {
   $ENC_password = htmlentities($INPUT_password,ENT_QUOTES);
   return("
       <center>
-        <font>" . $padding . "Website:&nbsp;</font><input $style type='text' readonly='readonly' name='url' value='$ENC_url'>
-                       <input $style type='text' hidden='hidden' readonly='readonly' name='user'     value='$ENC_user'>
-                       <input $style type='text' hidden='hidden' readonly='readonly' name='password' value='$ENC_password'>
+        <font>" . $padding . "Website:&nbsp;</font><input class='text' type='text' readonly='readonly' name='url' value='$ENC_url'>
+                       <input type='text' hidden='hidden' readonly='readonly' name='user'     value='$ENC_user'>
+                       <input type='text' hidden='hidden' readonly='readonly' name='password' value='$ENC_password'>
       </center>\n");
 } 
 
@@ -71,15 +89,15 @@ function settingInfo($padding) {
   $ENC_password = htmlentities($INPUT_password,ENT_QUOTES);
   return("
       <center>
-        <font>" . $padding . "Website: </font><input $style type='text' readonly='readonly' name='url' value='$ENC_url'>
-                       <input $style type='text' hidden='hidden' readonly='readonly' name='user'     value='$ENC_user'>
-                       <input $style type='text' hidden='hidden' readonly='readonly' name='password' value='$ENC_password'>
-                       <input $style type='text' hidden='hidden' readonly='readonly' name='upper'    value='$SQL_upper'>
-                       <input $style type='text' hidden='hidden' readonly='readonly' name='lower'    value='$SQL_lower'>
-                       <input $style type='text' hidden='hidden' readonly='readonly' name='number'   value='$SQL_number'>
-                       <input $style type='text' hidden='hidden' readonly='readonly' name='special'  value='$SQL_special'>
-                       <input $style type='text' hidden='hidden' readonly='readonly' name='size'     value='$SQL_size'>
-                       <input $style type='text' hidden='hidden' readonly='readonly' name='versionInc'  value='$SQL_versionInc'>
+        <font>" . $padding . "Website: </font><input class='text' type='text' readonly='readonly' name='url' value='$ENC_url'>
+                       <input type='text' hidden='hidden' readonly='readonly' name='user'     value='$ENC_user'>
+                       <input type='text' hidden='hidden' readonly='readonly' name='password' value='$ENC_password'>
+                       <input type='text' hidden='hidden' readonly='readonly' name='upper'    value='$SQL_upper'>
+                       <input type='text' hidden='hidden' readonly='readonly' name='lower'    value='$SQL_lower'>
+                       <input type='text' hidden='hidden' readonly='readonly' name='number'   value='$SQL_number'>
+                       <input type='text' hidden='hidden' readonly='readonly' name='special'  value='$SQL_special'>
+                       <input type='text' hidden='hidden' readonly='readonly' name='size'     value='$SQL_size'>
+                       <input type='text' hidden='hidden' readonly='readonly' name='versionInc'  value='$SQL_versionInc'>
       </center>\n");
 } 
 

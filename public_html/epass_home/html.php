@@ -9,12 +9,12 @@ function mainTable($rows) {
     <style type='text/css'>
 @font-face {
 	font-family: Password;
-	src: url('https://ns162.websitewelcome.com/~dagreve/passwordFonts/Password.eot');
-	src: url('https://ns162.websitewelcome.com/~dagreve/passwordFonts/Password.eot?#iefix') format('embedded-opentype'),
-	     url('https://ns162.websitewelcome.com/~dagreve/passwordFonts/Password.woff2') format('woff2'),
-	     url('https://ns162.websitewelcome.com/~dagreve/passwordFonts/Password.woff') format('woff'),
-	     url('https://ns162.websitewelcome.com/~dagreve/passwordFonts/Password.ttf') format('truetype'),
-	     url('https://ns162.websitewelcome.com/~dagreve/passwordFonts/Password.svg#Password') format('svg');
+	src: url('http://thegreves.com/passwordFonts/Password.eot');
+	src: url('http://thegreves.com/passwordFonts/Password.eot?#iefix') format('embedded-opentype'),
+	     url('http://thegreves.com/passwordFonts/Password.woff2') format('woff2'),
+	     url('http://thegreves.com/passwordFonts/Password.woff') format('woff'),
+	     url('http://thegreves.com/passwordFonts/Password.ttf') format('truetype'),
+	     url('http://thegreves.com/passwordFonts/Password.svg#Password') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }

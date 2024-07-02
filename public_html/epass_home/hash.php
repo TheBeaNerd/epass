@@ -254,9 +254,8 @@ class Entropy {
   var $index;
   var $err;
   var $min;
-
-  function Entropy($hash) {
-    
+  
+  public function __construct($hash) {
     $this->arr   = decodeString($hash);
     $this->index = 0;
     // We maintain the invariant that err and min are always in the

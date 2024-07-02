@@ -1,24 +1,4 @@
 <?php
-function getSQLSettings() {
-  global $INPUT_url, $INPUT_user, $INPUT_password, $SQL_upper,$SQL_lower,$SQL_number,$SQL_special,$SQL_size,$SQL_version;  
-  $SQL_version = 1;
-  $sql = openSQL();
-  $ID = upass($INPUT_user,$INPUT_password);
-  $query = "SELECT * FROM USERS WHERE ID='$ID' AND URL='$INPUT_url'";
-  $result = mysqli_query($sql, $query);
-  if ($result !== false) {
-    while($row = mysqli_fetch_array($result)) {
-	  	  $SQL_upper = $row['UPPER'];
-		  $SQL_lower = $row['LOWER'];
-		  $SQL_number = $row['NUMBER']; 
-	          $SQL_special = $row['SPECIAL'];
-		  $SQL_size = $row['SIZE'];  
-		  $SQL_version = $row['VERSION'];
-    }
-  }
-  mysqli_close($sql);
-}
-
 function getSavedSettings() {
     global $SQL_upper, $SQL_lower, $SQL_number, $SQL_special, $SQL_size, $SQL_version, $SQL_versionInc;
     $SQL_upper      = 1;
@@ -28,7 +8,31 @@ function getSavedSettings() {
     $SQL_size       = 10;
     $SQL_version    = 1;
     $SQL_versionInc = 0;
-    getSQLSettings();
+    try {
+      getSQLSettings();
+    } catch (\Error $e) {
+        echo "SQL ERROR: " . $e->getMessage() . "\n";
+    }
+}
+
+function getSQLSettings() {
+  global $INPUT_url, $INPUT_user, $INPUT_password, $SQL_upper,$SQL_lower,$SQL_number,$SQL_special,$SQL_size,$SQL_version;  
+  $SQL_version = 1;
+  $sql = openSQL();
+  $ID = upass($INPUT_user,$INPUT_password);
+  $query = "SELECT * FROM USERS WHERE ID='$ID' AND URL='$INPUT_url'";
+  $result = mysqli_query($sql, $query);
+  if ($result !== false) {
+    while($row = mysqli_fetch_array($result)) {
+	  	  $SQL_upper   = $row['UPPER'];
+		  $SQL_lower   = $row['LOWER'];
+		  $SQL_number  = $row['NUMBER']; 
+	      $SQL_special = $row['SPECIAL'];
+		  $SQL_size    = $row['SIZE'];  
+		  $SQL_version = $row['VERSION'];
+    }
+  }
+  mysqli_close($sql);
 }
 
 function saveSettings() {
@@ -62,7 +66,7 @@ function openSQL () {
   global $DBASE_user,$DBASE_pass,$DBASE_name;
 //  echo("<P>Connecting to MySQL</P>"); $DBASE_user
   $sql = mysqli_connect('localhost',$DBASE_user,$DBASE_pass,$DBASE_name);
-  if (mysqli_connect_errno($sql)) {
+  if ($sql -> connect_errno) {
     echo("<P>Failed to connect to MySQL : " . mysqli_connect_error() . "</P>\n");   
   }
   $query = "SELECT ID FROM USERS";

@@ -4,6 +4,9 @@ all: epass_home.tar.gz
 
 dist: test epass_home.tar.gz
 
+docker:
+	docker build -t epass .
+
 test:
 	cd test; ./test.php
 
